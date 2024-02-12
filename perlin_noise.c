@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h> // Include for seeding the random number generator
+#include <stdio.h>
 
 static int p[512];
 
@@ -28,11 +29,14 @@ static float grad(int hash, float x, float y, float z) {
     return ((h&1) == 0 ? u : -u) + ((h&2) == 0 ? v : -v);
 }
 
+float noiseMin = 0;
+float noiseMax = 1;
+
 float perlin(float x, float y, float z) {
     if(repeat > 0) {
-        x = fmod(x, repeat);
-        y = fmod(y, repeat);
-        z = fmod(z, repeat);
+        x = fmod(fabs(x), repeat);
+        y = fmod(fabs(y), repeat);
+        z = fmod(fabs(z), repeat);
     }
 
     int xi = (int)x & 255;
@@ -72,6 +76,11 @@ float perlin(float x, float y, float z) {
               u);
     y2 = lerp(x1, x2, v);
 
+    float finalValue = lerp(y1, y2, w);
+    if (finalValue < noiseMin) noiseMin = finalValue;
+    if (finalValue > noiseMax) noiseMax = finalValue;
+    float normalizedValue = (finalValue - noiseMin) / (noiseMax - noiseMin); // now it's between 0 and 1
+    return normalizedValue;
     
 }
 
@@ -104,5 +113,3 @@ void initPerlin() {
 float perlin2D(float x, float y) {
     return perlin(x, y, 0.0);
 }
-
-// Ensure to call initPerlin() at the start of your program
