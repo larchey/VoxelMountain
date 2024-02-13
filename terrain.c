@@ -3,8 +3,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <math.h>
-// #include "perlin_noise.h" 
-#include "simplex_noise.h"
+// #include "noise/perlin/perlin_noise.h" 
+#include "noise/simplex/simplex_noise.h"
 
 #define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 600
@@ -77,7 +77,7 @@ GLuint createCubeVBO() {
 }
 
 void drawGrid(GLuint cubeVBO) {
-    float noiseScale = 0.095;
+    float noiseScale = 0.05;
 
     // Bind the cube VBO
     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
@@ -112,7 +112,7 @@ void setupIsometricView(int width, int height) {
     gluPerspective(45.0, (double)width / (double)height, 0.1, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(30, 30, 40, 0, 0, 0, 0, 1, 0);
+    gluLookAt(30, 30, 40, 2, -8, 0, 0, 1, 0); 
     glEnable(GL_POLYGON_SMOOTH);
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 }
