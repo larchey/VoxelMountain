@@ -1,6 +1,6 @@
-# Isometric Grid with Perlin Noise
+# Isometric Grid with Simplex ~~Perlin~~ Noise
 
-This project demonstrates the creation of an isometric grid using OpenGL and SDL2, with terrain height variation simulated using Perlin noise. The grid consists of cubes whose heights vary according to the Perlin noise value at their grid position, creating a simple, procedurally generated landscape.
+This project demonstrates the creation of an isometric grid using OpenGL and SDL2, with terrain height variation simulated using Simplex ~~Perlin~~  noise. The grid consists of cubes whose heights vary according to the Simplex ~~Perlin~~  noise value at their grid position, creating a simple, procedurally generated landscape.
 
 ## Prerequisites
 
@@ -36,10 +36,10 @@ To build this project, follow these steps:
    Navigate to the directory containing your project files in the terminal, and compile the code using the following command:
 
    ```
-   gcc -o isometric_grid mountain.c perlin_noise.c -lSDL2 -lGL -lGLU
+   gcc -o isometric_grid mountain.c simplex_noise.c -lSDL2 -lGL -lGLU
    ```
 
-   This command compiles the `mountain.c` and `perlin_noise.c` files, linking against the SDL2, OpenGL, and GLU libraries, and produces an executable named `isometric_grid`.
+   This command compiles the `mountain.c` and `simplex_noise.c` files, linking against the SDL2, OpenGL, and GLU libraries, and produces an executable named `isometric_grid`.
 
 3. **Run the Program**
 
@@ -49,12 +49,12 @@ To build this project, follow these steps:
    ./isometric_grid
    ```
 
-   This will open a window displaying the isometric grid with varying cube heights based on Perlin noise.
+   This will open a window displaying the isometric grid with varying cube heights based on Simplex ~~Perlin~~  noise.
 
 ## Notes
 
 - The `drawCube` function is used to draw individual cubes at specified positions with varying heights.
-- The `drawGrid` function generates the grid by calculating the height of each cube using Perlin noise.
+- The `drawGrid` function generates the grid by calculating the height of each cube using Simplex ~~Perlin~~  noise.
 - The `setupIsometricView` function sets up the isometric view using OpenGL.
 
 Enjoy exploring the procedurally generated landscape!

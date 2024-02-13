@@ -3,6 +3,7 @@
 #include <GL/glu.h>
 #include <math.h>
 #include "perlin_noise.h"
+#include "simplex_noise.h"
 
 #define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 600
@@ -58,7 +59,8 @@ void drawGrid() {
 
     for (int i = 0; i < 20; ++i) {
         for (int j = 0; j < 20; ++j) {
-            float noiseValue = perlin2D((i + offsetX) * noiseScale, (j + offsetY) * noiseScale);
+            float noiseValue = simplex2D((i + offsetX) * noiseScale, (j + offsetY) * noiseScale);
+            // float noiseValue = perlin2D((i + offsetX) * noiseScale, (j + offsetY) * noiseScale); // Replaced by simplex
             int height = (int)floor(noiseValue * maxHeight);
             for (int k = 0; k <= height; ++k) {
                 drawCube(i - 10, k, j - 10, k, maxHeight);
@@ -85,7 +87,7 @@ int main(int argc, char *argv[]) {
                                           SDL_WINDOW_OPENGL);
     SDL_GLContext glContext = SDL_GL_CreateContext(window);
 
-    initPerlin(); // Initialize Perlin noise
+    // initPerlin(); // Initialize Perlin noiseREPLACED BY SIMPLEXNOISE
 
     setupIsometricView(WINDOW_WIDTH, WINDOW_HEIGHT);
 
