@@ -29,9 +29,6 @@ static float grad(int hash, float x, float y, float z) {
     return ((h&1) == 0 ? u : -u) + ((h&2) == 0 ? v : -v);
 }
 
-float noiseMin = 0;
-float noiseMax = 1;
-
 float perlin(float x, float y, float z) {
     if(repeat > 0) {
         x = fmod(fabs(x), repeat);
@@ -77,11 +74,10 @@ float perlin(float x, float y, float z) {
     y2 = lerp(x1, x2, v);
 
     float finalValue = lerp(y1, y2, w);
-    if (finalValue < noiseMin) noiseMin = finalValue;
-    if (finalValue > noiseMax) noiseMax = finalValue;
-    float normalizedValue = (finalValue - noiseMin) / (noiseMax - noiseMin); // now it's between 0 and 1
+    // Clamp the final value to the range [-1, 1]
+    finalValue = fminf(fmaxf(finalValue, -1.0f), 1.0f);
+    float normalizedValue = (finalValue + 1) / 2; // now it's between 0 and 1
     return normalizedValue;
-    
 }
 
 void initPerlin() {
