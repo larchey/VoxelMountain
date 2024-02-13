@@ -4,9 +4,9 @@ This project demonstrates the creation of an isometric grid using OpenGL and SDL
 
 ## Demo
 
-Here is a video demonstration of the project:
+Here is a demonstration of the project:
 
-![Demo Video](./demo/demo.webm)
+![Demo Gif](./demo/demo.gif)
 
 ## Prerequisites
 
