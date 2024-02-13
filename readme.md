@@ -1,4 +1,4 @@
-# Isometric Grid with Simplex ~~Perlin~~ Noise
+# Voxel Grid with opengl Simplex or Perlin Noise
 
 This project demonstrates the creation of an isometric grid using OpenGL and SDL2, with terrain height variation simulated using Simplex ~~Perlin~~  noise. The grid consists of cubes whose heights vary according to the Simplex ~~Perlin~~  noise value at their grid position, creating a simple, procedurally generated landscape.
 
@@ -36,7 +36,7 @@ To build this project, follow these steps:
    Navigate to the directory containing your project files in the terminal, and compile the code using the following command:
 
    ```
-   gcc -o isometric_grid mountain.c simplex_noise.c -lSDL2 -lGL -lGLU
+   gcc -g isometric_grid mountain.c simplex_noise.c -o mountain -lGL -lGLU -lSDL2 -lGLEW -lm
    ```
 
    This command compiles the `mountain.c` and `simplex_noise.c` files, linking against the SDL2, OpenGL, and GLU libraries, and produces an executable named `isometric_grid`.
