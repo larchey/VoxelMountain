@@ -23,13 +23,12 @@ static int fastfloor(float x) {
 static float dot(const int* g, float x, float y) {
     return g[0]*x + g[1]*y;
 }
-
 float simplex2D(float xin, float yin) {
     float n0, n1, n2;
     float F2 = 0.5*(sqrtf(3.0)-1.0);
     float s = (xin+yin)*F2;
-    int i = fastfloor(xin+s);
-    int j = fastfloor(yin+s);
+    int i = fastfloor(fmod(xin+s, 256.0)); // limit the range of xin
+    int j = fastfloor(fmod(yin+s, 256.0)); // limit the range of yin
     float G2 = (3.0-sqrtf(3.0))/6.0;
     float t = (i+j)*G2;
     float X0 = i-t;
@@ -41,10 +40,10 @@ float simplex2D(float xin, float yin) {
     float x1 = x0 - i1 + G2;
     float y1 = y0 - j1 + G2;
     float x2 = x0 - 1.0 + 2.0 * G2;
-        float y2 = y0 - 1.0 + 2.0 * G2;
+    float y2 = y0 - 1.0 + 2.0 * G2;
     int ii = i & 255;
     int jj = j & 255;
-    int gi0 = p[ii+p[jj]] % 12;
+    int gi0 = p[ii+p[jj] % 256] % 12;
     int gi1 = p[(ii+i1+p[(jj+j1) % 256]) % 256] % 12;
     int gi2 = p[(ii+1+p[(jj+1) % 256]) % 256] % 12;
     float t0 = 0.5 - x0*x0-y0*y0;
@@ -65,5 +64,11 @@ float simplex2D(float xin, float yin) {
       t2 *= t2;
       n2 = t2 * t2 * dot(grad3[gi2], x2, y2);
     }
-    return (70.0 * (n0 + n1 + n2) + 1) / 2; //normalize between 0 and 1
+    // Calculate the noise value
+    float noise = (70.0 * (n0 + n1 + n2) + 1) / 2;
+
+    // Clamp the noise value between 0 and 1
+    noise = fmaxf(0.0, fminf(1.0, noise));
+
+    return noise;
 }
